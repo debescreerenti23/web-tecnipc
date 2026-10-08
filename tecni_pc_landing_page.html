@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECNI PC | Servicio Técnico Informático</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#00FF66',
+                            600: '#00D053',
+                            700: '#00A341',
+                            dark: '#0B0F17',
+                            card: '#131B2A',
+                            border: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0F17;
+            color: #E2E8F0;
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.25);
+        }
+        .neon-glow-lg {
+            box-shadow: 0 0 35px rgba(0, 255, 102, 0.4);
+        }
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+        }
+        .neon-border {
+            border: 2px solid #00FF66;
+        }
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(11, 15, 23, 0) 0%, rgba(11, 15, 23, 0.95) 100%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00D053;
+        }
+    </style>
+</head>
+<body class="bg-[#0B0F17] text-gray-200 antialiased selection:bg-[#00FF66] selection:text-black">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-full border-2 border-[#00FF66] p-0.5 bg-gray-900 overflow-hidden shadow-lg group-hover:scale-105 transition-transform">
+                    <svg class="w-full h-full text-[#00FF66]" viewBox="0 0 100 100" fill="currentColor">
+                        <circle cx="50" cy="50" r="48" fill="#0D1527" stroke="#00FF66" stroke-width="4" />
+                        <path d="M30 35 H70 V65 H30 Z" fill="none" stroke="#00FF66" stroke-width="3"/>
+                        <rect x="45" y="65" width="10" height="8" fill="#00FF66"/>
+                        <rect x="35" y="73" width="30" height="4" fill="#00FF66"/>
+                        <path d="M60 40 L75 25 M75 25 L82 30 M75 25 L70 18" stroke="#00FF66" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider text-white">TECNI <span class="text-[#00FF66]">PC</span></span>
+                    <span class="block text-xs text-gray-400 font-medium tracking-widest uppercase">Técnico Informático</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#servicios" class="hover:text-[#00FF66] transition-colors">Servicios</a>
+                <a href="#contacto" class="hover:text-[#00FF66] transition-colors">Contacto</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden md:flex items-center gap-4">
+                <button onclick="openModal()" class="bg-[#00FF66] hover:bg-[#00D053] text-black font-bold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-[#00FF66]/20 flex items-center gap-2 text-sm">
+                    <i class="fa-brands font-semibold fa-whatsapp text-lg"></i>
+                    Consulta Rápida
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/95 border-b border-gray-800 px-6 py-4 space-y-4">
+            <a href="#servicios" class="block hover:text-[#00FF66]" onclick="toggleMobileMenu()">Servicios</a>
+            <a href="#trabajos" class="block hover:text-[#00FF66]" onclick="toggleMobileMenu()">Trabajos</a>
+            <a href="#cotizador" class="block hover:text-[#00FF66]" onclick="toggleMobileMenu()">Presupuesto Express</a>
+            <a href="#precios" class="block hover:text-[#00FF66]" onclick="toggleMobileMenu()">Tarifas</a>
+            <a href="#contacto" class="block hover:text-[#00FF66]" onclick="toggleMobileMenu()">Contacto</a>
+            <button onclick="openModal(); toggleMobileMenu();" class="w-full bg-[#00FF66] text-black font-bold py-2.5 rounded-full flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Contactar Ahora
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 md:py-28 overflow-hidden">
+        <!-- Ambient background lights -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#00FF66]/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-800/80 border border-[#00FF66]/30 text-[#00FF66] text-xs font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse"></span>
+                        Servicio Técnico Especializado
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+                        Tu ordenador en manos de un <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF66] to-emerald-400">Técnico Profesional</span>
+                    </h1>
+                    
+                    <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 font-light">
+                        Reparación rápida y garantizada de portátiles y torres PC. Mantenimiento, optimización extrema, diagnóstico preciso y montajes a medida.
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 bg-[#00FF66] hover:bg-[#00D053] text-black font-extrabold rounded-xl shadow-lg hover:shadow-[#00FF66]/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            Pedir Presupuesto
+                        </button>
+                    </div>
+
+                    <!-- Guarantee badges -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-gray-800/80 max-w-lg mx-auto lg:mx-0 text-center">
+                        <div>
+                            <div class="text-[#00FF66] font-bold text-xl"><i class="fa-solid fa-bolt mr-1"></i> Rápido</div>
+                            <div class="text-xs text-gray-400 mt-1">Diagnóstico en 24h</div>
+                        </div>
+                        <div>
+                            <div class="text-[#00FF66] font-bold text-xl"><i class="fa-solid fa-shield-halved mr-1"></i> Garantía</div>
+                            <div class="text-xs text-gray-400 mt-1">En todas las reparaciones</div>
+                        </div>
+                        <div>
+                            <div class="text-[#00FF66] font-bold text-xl"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> Justo</div>
+                            <div class="text-xs text-gray-400 mt-1">Sin costes ocultos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Logo / Hero Badge -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
+                        <!-- Outer rotating animated ring -->
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#00FF66]/40 animate-spin" style="animation-duration: 25s;"></div>
+                        <!-- Glowing Badge Container -->
+                        <div class="absolute inset-4 rounded-full bg-gradient-to-b from-gray-900 to-[#0B0F17] border-4 border-[#00FF66] shadow-[0_0_50px_rgba(0,255,102,0.3)] flex flex-col items-center justify-center p-6 text-center">
+                            <!-- Vector Icon Graphic replacing raw image placeholder -->
+                            <div class="relative mb-3">
+                                <i class="fa-solid fa-microchip text-6xl text-[#00FF66] drop-shadow-[0_0_10px_rgba(0,255,102,0.8)]"></i>
+                                <i class="fa-solid fa-screwdriver-wrench text-2xl text-white absolute -bottom-2 -right-2 bg-gray-900 p-1.5 rounded-full border border-[#00FF66]"></i>
+                            </div>
+                            <h2 class="text-2xl font-black tracking-wider text-white mt-2">TECNI <span class="text-[#00FF66]">PC</span></h2>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mt-1 font-semibold">Tu Técnico Informático</p>
+                            <div class="mt-4 px-3 py-1 rounded-full bg-[#00FF66]/10 border border-[#00FF66]/40 text-[#00FF66] text-xs font-mono">
+                                100% Especializado
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 bg-gray-900/50 relative border-t border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-[#00FF66] mb-2">Soluciones Profesionales</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">¿Qué servicio necesitas hoy?</p>
+                <p class="text-gray-400 mt-3 text-base">Atención directa para particulares y profesionales con los estándares más altos de calidad.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-gray-900/90 border border-gray-800 rounded-2xl p-8 hover:border-[#00FF66]/50 transition-all duration-300 hover:-translate-y-2 group shadow-lg">
+                    <div class="w-14 h-14 rounded-xl bg-[#00FF66]/10 border border-[#00FF66]/30 flex items-center justify-center text-[#00FF66] text-2xl mb-6 group-hover:bg-[#00FF66] group-hover:text-black transition-all">
+                        <i class="fa-solid fa-laptop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Reparación de Portátiles</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Limpieza profunda de ventilación</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Formateo o actualización del sistema operativo</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Sustitución de batería y teclado</li>
+                    </ul>
+                    <button onclick="openModal('Reparación de Portátil')" class="text-[#00FF66] font-semibold text-sm hover:underline flex items-center gap-2">
+                        Consultar sobre portátil <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-gray-900/90 border border-gray-800 rounded-2xl p-8 hover:border-[#00FF66]/50 transition-all duration-300 hover:-translate-y-2 group shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#00FF66] text-black text-xs font-bold px-3 py-1 rounded-bl-lg uppercase">Popular</div>
+                    <div class="w-14 h-14 rounded-xl bg-[#00FF66]/10 border border-[#00FF66]/30 flex items-center justify-center text-[#00FF66] text-2xl mb-6 group-hover:bg-[#00FF66] group-hover:text-black transition-all">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">PC Gaming & Mantenimiento</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Montaje a la carta de torres Gaming</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Sustitución de pasta térmica de alta gama</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Solución a apagaos por temperatura</li>
+                    </ul>
+                    <button onclick="openModal('Mantenimiento PC Gaming')" class="text-[#00FF66] font-semibold text-sm hover:underline flex items-center gap-2">
+                        Consultar sobre PC Gaming <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-gray-900/90 border border-gray-800 rounded-2xl p-8 hover:border-[#00FF66]/50 transition-all duration-300 hover:-translate-y-2 group shadow-lg">
+                    <div class="w-14 h-14 rounded-xl bg-[#00FF66]/10 border border-[#00FF66]/30 flex items-center justify-center text-[#00FF66] text-2xl mb-6 group-hover:bg-[#00FF66] group-hover:text-black transition-all">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Ampliación & Sistema</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Instalación de disco SSD ultra rápido</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Ampliación de Memoria RAM</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Formateo, Windows 11 & Drivers</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#00FF66]"></i> Eliminación de virus y malware</li>
+                    </ul>
+                    <button onclick="openModal('Ampliación u Optimización')" class="text-[#00FF66] font-semibold text-sm hover:underline flex items-center gap-2">
+                        Consultar sobre optimización <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparent Pricing Section -->
+    <section id="precios" class="py-20">
+        <se class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-[#00FF66] mb-2">Tarifas Transparentes</h2>
+                <p class="text-3xl font-extrabold text-white">Sin Sorpresas en la Factura</p>
+                <p class="text-gray-400 mt-2 text-sm">Precios claros y competitivos. Diagnóstico inicial ajustado a tus necesidades.</p>
+            </div>
+
+    </section>
+
+    <!-- Contact & Direct Chat Section -->
+    <section id="contacto" class="py-20 bg-gray-900/60 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-[#00FF66] mb-2">Contacto Directo</h2>
+                        <p class="text-3xl font-extrabold text-white">¿Tienes dudas o necesitas ayuda?</p>
+                        <p class="text-gray-400 text-sm mt-3">Escríbeme directamente por WhatsApp o Wallapop para darte una solución rápida en el mismo día.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800">
+                            <div class="w-12 h-12 rounded-lg bg-[#00FF66]/10 flex items-center justify-center text-[#00FF66] text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">Atención inmediata</div>
+                                <div class="text-white font-bold">+34 610 619 638</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800">
+                            <div class="w-12 h-12 rounded-lg bg-[#00FF66]/10 flex items-center justify-center text-[#00FF66] text-xl">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">Horario</div>
+                                <div class="text-white font-bold">Lunes a Domingo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Contact Form -->
+                <div class="lg:col-span-7 bg-gray-900 rounded-2xl border border-gray-800 p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-white mb-6">Enviar mensaje rápido</h3>
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Nombre</label>
+                                <input type="text" required placeholder="Tu nombre" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#00FF66] text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Teléfono / WhatsApp</label>
+                                <input type="tel" required placeholder="600000000" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#00FF66] text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 mb-1">Detalles de la avería o consulta</label>
+                            <textarea rows="4" required placeholder="Describe qué le ocurre a tu ordenador o qué mejora quieres realizar..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-[#00FF66] text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-[#00FF66] hover:bg-[#00D053] text-black font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Consulta
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0F17] py-8 border-t border-gray-800 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 TECNI PC - Servicio Técnico Informático Profesional. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp / Contact Modal -->
+    <div id="contact-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-[#00FF66]/10 text-[#00FF66] flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Contactar con TECNI PC</h3>
+                <p id="modal-service-text" class="text-xs text-gray-400 mt-1">Consulta directa por WhatsApp</p>
+            </div>
+
+            <div class="space-y-3">
+                <a id="modal-whatsapp-link" href="https://wa.me/34610619638?text=Hola%20TECNI%20PC,%20quiero%20informaci%C3%B3n" target="_blank" class="w-full bg-[#00FF66] hover:bg-[#00D053] text-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Abrir Chat de WhatsApp
+                </a>
+                <button onclick="copyToClipboard('+34610619638')" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 border border-gray-700">
+                    <i class="fa-solid fa-copy"></i> Copiar Número de Teléfono
+                </button>
+            </div>
+            
+            <div id="toast-msg" class="hidden mt-3 text-center text-xs text-[#00FF66] font-mono">
+                ¡Número copiado al portapapeles!
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactive Functionality -->
+    <script>
+        // Toggle Mobile Navigation
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Modal Functionality
+        function openModal(serviceName = '') {
+            const modal = document.getElementById('contact-modal');
+            const serviceText = document.getElementById('modal-service-text');
+            const waLink = document.getElementById('modal-whatsapp-link');
+
+            if (serviceName) {
+                serviceText.textContent = `Consulta sobre: ${serviceName}`;
+                const encodedMsg = encodeURIComponent(`Hola TECNI PC, me interesa información sobre el servicio: ${serviceName}`);
+                waLink.href = `https://wa.me/34610619638?text=${encodedMsg}`;
+            } else {
+                serviceText.textContent = 'Consulta directa por WhatsApp';
+                waLink.href = 'https://wa.me/34610619638?text=Hola%20TECNI%20PC,%20necesito%20asistencia%20con%20mi%20equipo';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('contact-modal').classList.add('hidden');
+        }
+
+        // Gallery Filter
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.gallery-filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-[#00FF66]', 'text-black', 'border-[#00FF66]');
+                btn.classList.add('bg-gray-800', 'text-gray-300', 'border-gray-700');
+            });
+
+            event.target.classList.remove('bg-gray-800', 'text-gray-300', 'border-gray-700');
+            event.target.classList.add('bg-[#00FF66]', 'text-black', 'border-[#00FF66]');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Calculator Logic
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
+            let total = 25; // Base inspection/handling fee
+
+            checkboxes.forEach(cb => {
+                total += parseInt(cb.getAttribute('data-price') || '0');
+            });
+
+            document.getElementById('estimated-price').textContent = `${total} €`;
+        }
+
+        function sendQuoteWhatsApp() {
+            const deviceType = document.querySelector('input[name="device_type"]:checked').value === 'laptop' ? 'Portátil' : 'Torre PC';
+            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
+            let services = [];
+            
+            checkboxes.forEach(cb => {
+                services.push(cb.parentElement.textContent.trim());
+            });
+
+            const total = document.getElementById('estimated-price').textContent;
+            const message = `Hola TECNI PC, he calculado un presupuesto en la web para ${deviceType}. Servicios: ${services.join(', ') || 'Revisión general'}. Total estimado: ${total}`;
+            
+            window.open(`https://wa.me/34610619638?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Copy Clipboard Helper
+        function copyToClipboard(text) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            const toast = document.getElementById('toast-msg');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value.trim();
+            const phone = form.querySelector('input[type="tel"]').value.trim();
+            const details = form.querySelector('textarea').value.trim();
+            const message = `Hola TECNI PC, soy ${name}. Mi teléfono es ${phone}. Consulta: ${details}`;
+            const whatsappUrl = `https://wa.me/34610619638?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
